@@ -1,17 +1,14 @@
 package Model;
 
-public class Convidado {
-    private String nome;
+public class Convidado extends Pessoa{
     private String tipo; // VIP ou Regular
 
-    public Convidado(String nome, String tipo){
-        this.nome = nome;
+    public Convidado(String nome, int id, String tipo){
+        super(nome, id);
         this.tipo = tipo;
     }
 
-    public String getNome() {
-        return nome;
-    }
+
 
     public String getTipo() {
         return tipo;
@@ -19,7 +16,7 @@ public class Convidado {
 
     @Override
     public String toString(){
-        return "Nome: " + nome +
+        return "Nome: " + getNome() +
                 "Tipo: " + tipo;
     }
 
