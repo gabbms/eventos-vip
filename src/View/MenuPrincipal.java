@@ -147,11 +147,11 @@ public class MenuPrincipal {
             pedidoService.criarPedido(idMesa, idConvidado, nomesItens);
             System.out.println("Pedido criado com sucesso!");
 
+        } catch (NumberFormatException e) {
+            System.err.println("Erro de formato: IDs devem ser números.");
         } catch (Exception e) {
             // Trata múltiplas exceções de negócio
             System.err.println("Erro ao fazer pedido: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.err.println("Erro de formato: IDs devem ser números.");
         }
     }
 
