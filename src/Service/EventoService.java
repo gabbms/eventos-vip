@@ -14,7 +14,6 @@ public class EventoService {
     private List<Mesa> mesasCadastradas;
     private List<Garcom> garconsCadastrados;
 
-    // Contadores para gerar IDs únicos
     private int proximoIdConvidado = 1;
     private int proximoIdGarcom = 1;
 
@@ -24,7 +23,6 @@ public class EventoService {
         this.garconsCadastrados = new ArrayList<>();
     }
 
-    // --- Métodos de Configuração do Evento ---
 
     public void criarEvento(String tema) {
         this.eventoAtual = new Evento(tema);
@@ -74,7 +72,6 @@ public class EventoService {
         return novoConvidado.getId(); // Retorna o ID para o usuário
     }
 
-    // --- Métodos de Lógica/Orquestração ---
 
     public void designarConvidadoMesa(int idConvidado, int numeroMesa)
             throws GerenciamentoException, MesaCheiaException {
@@ -86,7 +83,6 @@ public class EventoService {
         mesa.adicionarConvidado(convidado);
     }
 
-    // --- Métodos de Busca (Encapsulamento da lógica) ---
 
     public Convidado buscarConvidado(int id) throws GerenciamentoException {
         for (Convidado c : convidadosCadastrados) {
