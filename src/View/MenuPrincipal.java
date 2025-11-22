@@ -102,6 +102,25 @@ public class MenuPrincipal {
             System.err.println("Erro ao cadastrar: " + e.getMessage());
         }
     }
+    private static void designarConvidadoMesa() {
+        // Bloco try-catch para capturar exceções
+        try {
+            System.out.print("Código (ID) do convidado: ");
+            int id = Integer.parseInt(sc.nextLine());
+
+            System.out.print("Número da mesa: ");
+            int numMesa = Integer.parseInt(sc.nextLine());
+
+            // Chama o service, que pode lançar (throw) exceções
+            eventoService.designarConvidadoMesa(id, numMesa);
+
+        } catch (Exception e) { // Captura (catch) as exceções
+            System.err.println("Erro ao designar mesa: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("Erro de formato: O ID e o N° da mesa devem ser números.");
+        }
+    }
+
 }
 
 
