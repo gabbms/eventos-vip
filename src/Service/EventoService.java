@@ -1,8 +1,7 @@
 package Service;
 
-import Exception.GerenciamentoException;
 import Exception.ItemNaoEncontradoException;
-import Exception.MesaCheiaException;
+import Exception.MesaLotadaException;
 import Model.*;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class EventoService {
     // --- Métodos de Lógica/Orquestração ---
 
     public void designarConvidadoMesa(int idConvidado, int numeroMesa)
-            throws GerenciamentoException, MesaCheiaException {
+            throws Exception, MesaLotadaException {
 
         Convidado convidado = buscarConvidado(idConvidado);
         Mesa mesa = buscarMesa(numeroMesa);
@@ -88,22 +87,22 @@ public class EventoService {
 
     // --- Métodos de Busca (Encapsulamento da lógica) ---
 
-    public Convidado buscarConvidado(int id) throws GerenciamentoException {
+    public Convidado buscarConvidado(int id) throws Exception {
         for (Convidado c : convidadosCadastrados) {
             if (c.getId() == id) {
                 return c;
             }
         }
-        throw new GerenciamentoException("Convidado com ID " + id + " não encontrado.");
+        throw new Exception("Convidado com ID " + id + " não encontrado.");
     }
 
-    public Mesa buscarMesa(int numero) throws GerenciamentoException {
+    public Mesa buscarMesa(int numero) throws Exception {
         for (Mesa m : mesasCadastradas) {
             if (m.getNumero() == numero) {
                 return m;
             }
         }
-        throw new GerenciamentoException("Mesa de número " + numero + " não encontrada.");
+        throw new Exception("Mesa de número " + numero + " não encontrada.");
     }
 
     public ItemCardapio buscarItemCardapio(String nome) throws ItemNaoEncontradoException {

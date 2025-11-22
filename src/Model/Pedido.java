@@ -17,9 +17,7 @@ public class Pedido {
         this.itens = itens;
     }
 
-    /**
-     * Calcula o valor bruto do pedido (antes dos descontos do convidado).
-     */
+    // Calcula o valor bruto do pedido (antes dos descontos do convidado).
     public double calcularTotal() {
         double total = 0;
         for (ItemCardapio item : itens) {
