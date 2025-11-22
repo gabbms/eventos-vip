@@ -25,5 +25,12 @@ public class Mesa {
         convidados.add(c);
         System.out.println(c.getNome() + " (" + c.getTipo() + ") adicionado à mesa " + numero);
     }
+    public void adicionarPedido(Pedido p) {
+        this.pedidos.add(p);
+    }
+    public List<Convidado> getConvidados() { return convidados; }
+    public List<Pedido> getPedidos() { return pedidos; }
+    public int getNumero() { return numero; }
+    public Garcom getGarcomAssociado() { return garcomAssociado; }
 
 }
