@@ -170,6 +170,18 @@ public class MenuPrincipal {
         }
     }
 
+    private static void emitirRelatorio() {
+        System.out.println("Gerando relatório completo do evento...");
+        try {
+            // Chama o método da interface
+            String relatorio = relatorioService.gerarRelatorio(eventoService.getEventoAtual());
+            System.out.println(relatorio);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao gerar relatório: " + e.getMessage());
+        }
+    }
+
 
 }
 
