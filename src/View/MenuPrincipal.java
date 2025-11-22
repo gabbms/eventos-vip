@@ -33,5 +33,35 @@ public class MenuPrincipal {
         eventoService.adicionarItemCardapio("Lagosta", 150.00, true);
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
+
+        while (true) {
+            exibirMenu();
+            int opcao = lerOpcao();
+
+            switch (opcao) {
+                case 1:
+                    cadastrarConvidado();
+                    break;
+                case 2:
+                    designarConvidadoMesa();
+                    break;
+                case 3:
+                    fazerPedido();
+                    break;
+                case 4:
+                    fecharContaMesa();
+                    break;
+                case 5:
+                    emitirRelatorio();
+                    break;
+                case 0:
+                    System.out.println("Saindo do sistema...");
+                    return;
+                default:
+                    System.err.println("Opção inválida! Tente novamente.");
+            }
+        }
     }
+}
+
 }
