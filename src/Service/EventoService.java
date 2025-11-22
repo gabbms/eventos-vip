@@ -40,7 +40,6 @@ public class EventoService {
     }
 
 
-
     public Garcom cadastrarGarcom(String nome) {
         Garcom g = new Garcom();
         g.setNome(nome);
