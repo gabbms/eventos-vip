@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 
 public class MenuPrincipal {
-    private static Scanner scanner = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     private static EventoService eventoService = new EventoService();
     private static PagamentoService pagamentoService = new PagamentoService();
     private static PedidoService pedidoService;
@@ -75,10 +75,31 @@ public class MenuPrincipal {
 
     private static int lerOpcao() {
         try {
-            return Integer.parseInt(scanner.nextLine());
+            return Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("Erro: Por favor, digite apenas números.");
             return -1; // Retorna uma opção inválida
+        }
+    }
+
+    private static void cadastrarConvidado() {
+        try {
+            System.out.print("Nome do convidado: ");
+            String nome = sc.nextLine();
+            System.out.print("Tipo (1-Regular, 2-VIP): ");
+            int tipo = Integer.parseInt(sc.nextLine());
+
+            String tipoStr = (tipo == 2) ? "VIP" : "Regular";
+
+            int idGerado = eventoService.cadastrarConvidado(nome, tipoStr);
+
+            System.out.println("Convidado cadastrado com sucesso!");
+            System.out.println(">>> O ID do convidado " + nome + " é: " + idGerado + " <<<");
+
+        } catch (NumberFormatException e) {
+            System.err.println("Erro de formato: O tipo deve ser 1 ou 2.");
+        } catch (Exception e) {
+            System.err.println("Erro ao cadastrar: " + e.getMessage());
         }
     }
 }
