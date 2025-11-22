@@ -114,10 +114,10 @@ public class MenuPrincipal {
             // Chama o service, que pode lançar (throw) exceções
             eventoService.designarConvidadoMesa(id, numMesa);
 
-        } catch (Exception e) { // Captura (catch) as exceções
-            System.err.println("Erro ao designar mesa: " + e.getMessage());
         } catch (NumberFormatException e) {
             System.err.println("Erro de formato: O ID e o N° da mesa devem ser números.");
+        } catch (Exception e) { // Captura (catch) as exceções
+            System.err.println("Erro ao designar mesa: " + e.getMessage());
         }
     }
 
