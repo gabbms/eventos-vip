@@ -120,6 +120,41 @@ public class MenuPrincipal {
             System.err.println("Erro ao designar mesa: " + e.getMessage());
         }
     }
+    private static void fazerPedido() {
+        try {
+            System.out.print("ID do Convidado que está pedindo: ");
+            int idConvidado = Integer.parseInt(sc.nextLine());
+
+            System.out.print("Número da Mesa: ");
+            int idMesa = Integer.parseInt(sc.nextLine());
+
+            List<String> nomesItens = new ArrayList<>();
+            System.out.println("Digite os itens (ou 'fim' para encerrar):");
+            while (true) {
+                String nomeItem = sc.nextLine();
+                if (nomeItem.equalsIgnoreCase("fim")) {
+                    break;
+                }
+                nomesItens.add(nomeItem);
+            }
+
+            if (nomesItens.isEmpty()) {
+                System.out.println("Nenhum item adicionado. Pedido cancelado.");
+                return;
+            }
+
+            // Chama o service para processar a lógica
+            pedidoService.criarPedido(idMesa, idConvidado, nomesItens);
+            System.out.println("Pedido criado com sucesso!");
+
+        } catch (Exception e) {
+            // Trata múltiplas exceções de negócio
+            System.err.println("Erro ao fazer pedido: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("Erro de formato: IDs devem ser números.");
+        }
+    }
+
 
 }
 
