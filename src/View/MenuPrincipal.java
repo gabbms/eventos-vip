@@ -62,6 +62,16 @@ public class MenuPrincipal {
             }
         }
     }
+    private static void exibirMenu() {
+        System.out.println("\n--- Eventos VIP ---");
+        System.out.println("1. Cadastrar Convidado");
+        System.out.println("2. Designar Convidado à Mesa");
+        System.out.println("3. Fazer Pedido");
+        System.out.println("4. Fechar Conta da Mesa");
+        System.out.println("5. Emitir Relatório Final do Evento");
+        System.out.println("0. Sair");
+        System.out.print("Escolha uma opção: ");
+    }
 }
 
-}
+
