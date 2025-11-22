@@ -163,10 +163,10 @@ public class MenuPrincipal {
             // O PagamentoService faz o cálculo e já imprime os detalhes
             pagamentoService.calcularContaMesa(mesa);
 
-        } catch (Exception e) {
-            System.err.println("Erro: " + e.getMessage());
         } catch (NumberFormatException e) {
             System.err.println("Erro de formato: O número da mesa deve ser um número.");
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
         }
     }
 
