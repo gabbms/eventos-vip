@@ -154,6 +154,21 @@ public class MenuPrincipal {
             System.err.println("Erro ao fazer pedido: " + e.getMessage());
         }
     }
+    private static void fecharContaMesa() {
+        try {
+            System.out.print("Número da mesa para fechar a conta: ");
+            int numMesa = Integer.parseInt(sc.nextLine());
+
+            Mesa mesa = eventoService.buscarMesa(numMesa);
+            // O PagamentoService faz o cálculo e já imprime os detalhes
+            pagamentoService.calcularContaMesa(mesa);
+
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("Erro de formato: O número da mesa deve ser um número.");
+        }
+    }
 
 
 }
