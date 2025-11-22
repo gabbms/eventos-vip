@@ -22,9 +22,7 @@ public class EventoService {
         this.mesasCadastradas = new ArrayList<>();
         this.garconsCadastrados = new ArrayList<>();
     }
-
-    // --- Métodos de Configuração do Evento ---
-
+    //Metodo de configuração do evento.
     public void criarEvento(String tema) {
         this.eventoAtual = new Evento(tema);
         this.eventoAtual.setMesas(this.mesasCadastradas);
@@ -79,12 +77,8 @@ public class EventoService {
 
         Convidado convidado = buscarConvidado(idConvidado);
         Mesa mesa = buscarMesa(numeroMesa);
-
-        // A lógica de "pode adicionar?" está encapsulada na Mesa (model/Mesa.java)
         mesa.adicionarConvidado(convidado);
     }
-
-    // --- Métodos de Busca (Encapsulamento da lógica) ---
 
     public Convidado buscarConvidado(int id) throws Exception {
         for (Convidado c : convidadosCadastrados) {

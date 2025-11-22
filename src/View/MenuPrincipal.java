@@ -181,8 +181,6 @@ public class MenuPrincipal {
             System.err.println("Erro ao gerar relatório: " + e.getMessage());
         }
     }
-
-
 }
 
 

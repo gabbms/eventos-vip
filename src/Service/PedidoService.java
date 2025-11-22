@@ -16,9 +16,7 @@ public class PedidoService {
         this.eventoService = eventoService;
     }
 
-    /**
-     * Orquestra a criação de um pedido.
-     */
+
     public void criarPedido(int idMesa, int idConvidado, List<String> nomesItens)
             throws Exception, PermissaoException, ItemNaoEncontradoException {
 
@@ -33,7 +31,7 @@ public class PedidoService {
         for (String nomeItem : nomesItens) {
             ItemCardapio item = eventoService.buscarItemCardapio(nomeItem);
 
-            // REGRA DE NEGÓCIO: Verifica se o item é VIP [cite: 11]
+            // REGRA DE NEGÓCIO: Verifica se o item é VIP
             if (item.isExclusivoVIP() && !(convidado instanceof ConvidadoVIP)) {
                 throw new PermissaoException("O item '" + item.getNome() + "' é exclusivo para convidados VIP.");
             }
