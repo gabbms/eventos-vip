@@ -1,30 +1,52 @@
 package Model;
 
+import java.util.List;
+
 public class Pedido {
-    private double valor;
-    private String item;
+    private int id;
+    private List<ItemCardapio> itens;
     private Convidado convidado;
+    private Garcom garcom;
+    private Mesa mesa;
 
-    public Pedido(double valor, String item, Convidado convidado) {
-        this.valor = valor;
-        this.item = item;
+    public Pedido(int id, Mesa mesa, Convidado convidado, Garcom garcom, List<ItemCardapio> itens) {
+        this.id = id;
+        this.mesa = mesa;
         this.convidado = convidado;
+        this.garcom = garcom;
+        this.itens = itens;
     }
 
-    public double getValor() {
-        return valor;
+    /**
+     * Calcula o valor bruto do pedido (antes dos descontos do convidado).
+     */
+    public double calcularTotal() {
+        double total = 0;
+        for (ItemCardapio item : itens) {
+            total += item.getPreco();
+        }
+        return total;
     }
 
-    public String getItem() {
-        return item;
+    public int getId() {
+        return id;
     }
 
     public Convidado getConvidado() {
         return convidado;
     }
 
-    public String toString(){
-        return  "Convidado: " + convidado.getNome() + "\n(Item: " + item +
-                ", Valor: )" + valor;
+    public Garcom getGarcom() {
+        return garcom;
     }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public List<ItemCardapio> getItens() {
+        return itens;
+    }
+
 }
+
