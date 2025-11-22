@@ -72,6 +72,15 @@ public class MenuPrincipal {
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
+
+    private static int lerOpcao() {
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.err.println("Erro: Por favor, digite apenas números.");
+            return -1; // Retorna uma opção inválida
+        }
+    }
 }
 
 
