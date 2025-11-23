@@ -1,4 +1,5 @@
 package view;
+
 import model.*;
 import service.*;
 
@@ -81,7 +82,7 @@ public class MenuPrincipal {
                     emitirRelatorioConsole();
                     break;
                 case 6:
-                    gerarRelatorioPDF(); // Nova funcionalidade
+                    gerarRelatorioPDF();
                     break;
                 case 0:
                     // Salva os dados antes de sair
@@ -102,7 +103,7 @@ public class MenuPrincipal {
         System.out.println("3. Fazer Pedido");
         System.out.println("4. Fechar Conta da Mesa");
         System.out.println("5. Relatório no Console");
-        System.out.println("6. Gerar PDF do Evento");
+        System.out.println("6. Gerar PDF do Evento (Desafio)");
         System.out.println("0. Sair e Salvar");
         System.out.print("Escolha uma opção: ");
     }
@@ -116,10 +117,21 @@ public class MenuPrincipal {
         }
     }
 
+    // --- AQUI ESTÁ A ALTERAÇÃO (VALIDAÇÃO DO NOME) ---
     private static void cadastrarConvidado() {
         try {
             System.out.print("Nome do convidado: ");
             String nome = sc.nextLine();
+
+            // Validação: Impede números no nome
+            if (nome.matches(".*\\d.*")) {
+                throw new Exception("O nome não pode conter números.");
+            }
+            // Validação: Impede nome vazio
+            if (nome.trim().isEmpty()) {
+                throw new Exception("O nome não pode ser vazio.");
+            }
+
             System.out.print("Tipo (1-Regular, 2-VIP): ");
             int tipo = Integer.parseInt(sc.nextLine());
 
@@ -218,7 +230,7 @@ public class MenuPrincipal {
     private static void gerarRelatorioPDF() {
         System.out.println("Gerando PDF do evento...");
         try {
-            // Caminho do arquivo
+            // Caminho para salvar (ajuste se necessário)
             String nomeArquivo = "G:\\Meu Drive\\EventosVIP\\Relatorio_Evento_VIP.pdf";
 
             relatorioPDFService.gerarRelatorioPdf(eventoService.getEventoAtual(), nomeArquivo);
