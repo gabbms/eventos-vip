@@ -1,8 +1,7 @@
-package Service;
+package service;
 
-import Model.Evento;
-import Model.Mesa;
-import Model.Pedido;
+import model.Evento;
+import model.Mesa;
 
 /**
  * Implementação concreta da interface IRelatorio.

@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Model.Evento;
+import model.Evento;
 
 public interface IRelatorio {
     String gerarRelatorio(Evento evento)throws Exception;

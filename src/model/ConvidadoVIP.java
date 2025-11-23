@@ -1,6 +1,4 @@
-package Model;
-
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+package model;
 
 public class ConvidadoVIP extends Convidado{
     private final double DESCONTO_VIP=0.15;

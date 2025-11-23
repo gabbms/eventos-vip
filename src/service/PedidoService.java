@@ -1,8 +1,8 @@
-package Service;
+package service;
 
 import Exception.ItemNaoEncontradoException;
 import Exception.PermissaoException;
-import Model.*;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;

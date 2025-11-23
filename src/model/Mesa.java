@@ -1,4 +1,4 @@
-package Model;
+package model;
 import Exception.MesaLotadaException;
 
 import java.util.ArrayList;

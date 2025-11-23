@@ -1,8 +1,8 @@
-package Service;
+package service;
 
 import Exception.ItemNaoEncontradoException;
 import Exception.MesaLotadaException;
-import Model.*;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,12 @@ public class EventoService {
         this.mesasCadastradas = new ArrayList<>();
         this.garconsCadastrados = new ArrayList<>();
     }
-    //Metodo de configuração do evento.
+
+    // --- Métodos de Configuração do Evento ---
+
     public void criarEvento(String tema) {
         this.eventoAtual = new Evento(tema);
+        // Associa as listas do serviço ao objeto evento
         this.eventoAtual.setMesas(this.mesasCadastradas);
         this.eventoAtual.setGarcons(this.garconsCadastrados);
         this.eventoAtual.setCardapio(new ArrayList<>());
@@ -32,16 +35,19 @@ public class EventoService {
     }
 
     public void adicionarItemCardapio(String nome, double preco, boolean exclusivoVIP) {
+        if (this.eventoAtual == null) {
+            System.out.println("Erro: Crie um evento antes de adicionar itens.");
+            return;
+        }
         ItemCardapio item = new ItemCardapio(nome, preco, exclusivoVIP);
         this.eventoAtual.getCardapio().add(item);
         System.out.println("Item '" + nome + "' adicionado ao cardápio.");
     }
 
+    // --- Métodos de Cadastro ---
 
     public Garcom cadastrarGarcom(String nome) {
-        Garcom g = new Garcom();
-        g.setNome(nome);
-        g.setId(proximoIdGarcom++);
+        Garcom g = new Garcom(nome, proximoIdGarcom++);
         this.garconsCadastrados.add(g);
         System.out.println("Garçom " + nome + " (ID: " + g.getId() + ") cadastrado.");
         return g;
@@ -77,8 +83,12 @@ public class EventoService {
 
         Convidado convidado = buscarConvidado(idConvidado);
         Mesa mesa = buscarMesa(numeroMesa);
+
+        // A lógica de validação está dentro da classe Mesa
         mesa.adicionarConvidado(convidado);
     }
+
+    // --- Métodos de Busca ---
 
     public Convidado buscarConvidado(int id) throws Exception {
         for (Convidado c : convidadosCadastrados) {
@@ -99,6 +109,9 @@ public class EventoService {
     }
 
     public ItemCardapio buscarItemCardapio(String nome) throws ItemNaoEncontradoException {
+        if (this.eventoAtual == null || this.eventoAtual.getCardapio() == null) {
+            throw new ItemNaoEncontradoException("Cardápio vazio ou evento não iniciado.");
+        }
         for (ItemCardapio item : this.eventoAtual.getCardapio()) {
             if (item.getNome().equalsIgnoreCase(nome)) {
                 return item;
@@ -111,16 +124,25 @@ public class EventoService {
         return eventoAtual;
     }
 
+    // --- MÉTODOS PARA PERSISTÊNCIA (NOVO) ---
+
+    // Permite que o PersistenciaService pegue a lista para salvar
     public List<Convidado> getConvidadosCadastrados() {
         return convidadosCadastrados;
     }
 
+    // Permite que o Menu carregue a lista do arquivo para cá
     public void setConvidadosCadastrados(List<Convidado> convidados) {
         this.convidadosCadastrados = convidados;
-        // Atualiza o contador de ID para não repetir IDs antigos
+
+        // Atualiza o contador de IDs para não repetir IDs antigos ao cadastrar novos
         if (!convidados.isEmpty()) {
-            // Pega o maior ID da lista e soma 1
-            int maiorId = convidados.stream().mapToInt(Convidado::getId).max().orElse(0);
+            int maiorId = 0;
+            for (Convidado c : convidados) {
+                if (c.getId() > maiorId) {
+                    maiorId = c.getId();
+                }
+            }
             this.proximoIdConvidado = maiorId + 1;
         }
     }

@@ -1,8 +1,8 @@
-package Service;
+package service;
 
-import Model.Convidado;
-import Model.ConvidadoRegular;
-import Model.ConvidadoVIP;
+import model.Convidado;
+import model.ConvidadoRegular;
+import model.ConvidadoVIP;
 
 import java.io.*;
 import java.util.ArrayList;
