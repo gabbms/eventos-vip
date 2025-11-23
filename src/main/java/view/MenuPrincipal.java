@@ -103,7 +103,7 @@ public class MenuPrincipal {
         System.out.println("3. Fazer Pedido");
         System.out.println("4. Fechar Conta da Mesa");
         System.out.println("5. Relatório no Console");
-        System.out.println("6. Gerar PDF do Evento (Desafio)");
+        System.out.println("6. Gerar PDF do Evento");
         System.out.println("0. Sair e Salvar");
         System.out.print("Escolha uma opção: ");
     }
