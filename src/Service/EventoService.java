@@ -110,4 +110,18 @@ public class EventoService {
     public Evento getEventoAtual() {
         return eventoAtual;
     }
+
+    public List<Convidado> getConvidadosCadastrados() {
+        return convidadosCadastrados;
+    }
+
+    public void setConvidadosCadastrados(List<Convidado> convidados) {
+        this.convidadosCadastrados = convidados;
+        // Atualiza o contador de ID para não repetir IDs antigos
+        if (!convidados.isEmpty()) {
+            // Pega o maior ID da lista e soma 1
+            int maiorId = convidados.stream().mapToInt(Convidado::getId).max().orElse(0);
+            this.proximoIdConvidado = maiorId + 1;
+        }
+    }
 }

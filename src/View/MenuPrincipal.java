@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class MenuPrincipal {
     private static Scanner sc = new Scanner(System.in);
     private static EventoService eventoService = new EventoService();
@@ -16,12 +15,32 @@ public class MenuPrincipal {
     private static PedidoService pedidoService;
     private static IRelatorio relatorioService;
 
+    // NOVO: Serviço de persistência para salvar arquivos
+    private static PersistenciaService persistenciaService = new PersistenciaService();
+
     public static void main(String[] args){
+        // Injeção de dependências
         pedidoService = new PedidoService(eventoService);
         relatorioService = new RelatorioService(pagamentoService);
 
+        // --- CARREGAR DADOS (PERSISTÊNCIA) ---
+        try {
+            System.out.println("Tentando carregar dados salvos...");
+            List<Convidado> dadosSalvos = persistenciaService.carregarConvidados();
+
+            // Se houver dados salvos, atualiza o serviço
+            if (!dadosSalvos.isEmpty()) {
+                eventoService.setConvidadosCadastrados(dadosSalvos);
+                System.out.println("Dados carregados com sucesso!");
+            }
+        } catch (Exception e) {
+            System.out.println("Nenhum arquivo de dados encontrado. Iniciando limpo.");
+        }
+        // -------------------------------------
+
         eventoService.criarEvento("Gala de Tecnologia");
 
+        // Dados iniciais (Hardcoded para teste)
         Garcom g1 = eventoService.cadastrarGarcom("Carlos");
         Garcom g2 = eventoService.cadastrarGarcom("Ana");
         Mesa m1 = eventoService.cadastrarMesa(1, g1);
@@ -55,6 +74,9 @@ public class MenuPrincipal {
                     emitirRelatorio();
                     break;
                 case 0:
+                    // --- SALVAR DADOS AO SAIR ---
+                    System.out.println("Salvando dados em arquivo...");
+                    persistenciaService.salvarConvidados(eventoService.getConvidadosCadastrados());
                     System.out.println("Saindo do sistema...");
                     return;
                 default:
@@ -62,6 +84,7 @@ public class MenuPrincipal {
             }
         }
     }
+
     private static void exibirMenu() {
         System.out.println("\n--- Eventos VIP ---");
         System.out.println("1. Cadastrar Convidado");
@@ -69,7 +92,7 @@ public class MenuPrincipal {
         System.out.println("3. Fazer Pedido");
         System.out.println("4. Fechar Conta da Mesa");
         System.out.println("5. Emitir Relatório Final do Evento");
-        System.out.println("0. Sair");
+        System.out.println("0. Sair (Salvar dados)");
         System.out.print("Escolha uma opção: ");
     }
 
@@ -78,7 +101,7 @@ public class MenuPrincipal {
             return Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("Erro: Por favor, digite apenas números.");
-            return -1; // Retorna uma opção inválida
+            return -1;
         }
     }
 
@@ -102,8 +125,8 @@ public class MenuPrincipal {
             System.err.println("Erro ao cadastrar: " + e.getMessage());
         }
     }
+
     private static void designarConvidadoMesa() {
-        // Bloco try-catch para capturar exceções
         try {
             System.out.print("Código (ID) do convidado: ");
             int id = Integer.parseInt(sc.nextLine());
@@ -111,15 +134,17 @@ public class MenuPrincipal {
             System.out.print("Número da mesa: ");
             int numMesa = Integer.parseInt(sc.nextLine());
 
-            // Chama o service, que pode lançar (throw) exceções
             eventoService.designarConvidadoMesa(id, numMesa);
+            System.out.println("Convidado adicionado à mesa com sucesso!");
 
         } catch (NumberFormatException e) {
+            // CORREÇÃO AQUI: NumberFormatException vem ANTES de Exception
             System.err.println("Erro de formato: O ID e o N° da mesa devem ser números.");
-        } catch (Exception e) { // Captura (catch) as exceções
+        } catch (Exception e) {
             System.err.println("Erro ao designar mesa: " + e.getMessage());
         }
     }
+
     private static void fazerPedido() {
         try {
             System.out.print("ID do Convidado que está pedindo: ");
@@ -130,6 +155,7 @@ public class MenuPrincipal {
 
             List<String> nomesItens = new ArrayList<>();
             System.out.println("Digite os itens (ou 'fim' para encerrar):");
+
             while (true) {
                 String nomeItem = sc.nextLine();
                 if (nomeItem.equalsIgnoreCase("fim")) {
@@ -143,24 +169,22 @@ public class MenuPrincipal {
                 return;
             }
 
-            // Chama o service para processar a lógica
             pedidoService.criarPedido(idMesa, idConvidado, nomesItens);
             System.out.println("Pedido criado com sucesso!");
 
         } catch (NumberFormatException e) {
             System.err.println("Erro de formato: IDs devem ser números.");
         } catch (Exception e) {
-            // Trata múltiplas exceções de negócio
             System.err.println("Erro ao fazer pedido: " + e.getMessage());
         }
     }
+
     private static void fecharContaMesa() {
         try {
             System.out.print("Número da mesa para fechar a conta: ");
             int numMesa = Integer.parseInt(sc.nextLine());
 
             Mesa mesa = eventoService.buscarMesa(numMesa);
-            // O PagamentoService faz o cálculo e já imprime os detalhes
             pagamentoService.calcularContaMesa(mesa);
 
         } catch (NumberFormatException e) {
@@ -173,7 +197,6 @@ public class MenuPrincipal {
     private static void emitirRelatorio() {
         System.out.println("Gerando relatório completo do evento...");
         try {
-            // Chama o método da interface
             String relatorio = relatorioService.gerarRelatorio(eventoService.getEventoAtual());
             System.out.println(relatorio);
 
@@ -182,5 +205,3 @@ public class MenuPrincipal {
         }
     }
 }
-
-
