@@ -25,7 +25,7 @@ public class MenuPrincipal {
         pedidoService = new PedidoService(eventoService);
         relatorioService = new RelatorioService(pagamentoService);
 
-        // --- 1. CARREGAR DADOS SALVOS (PERSISTÊNCIA) ---
+        // Carregar dados salvos (Persistência)
         try {
             System.out.println("Tentando carregar convidados salvos...");
             List<Convidado> dadosSalvos = persistenciaService.carregarConvidados();
@@ -40,10 +40,10 @@ public class MenuPrincipal {
             System.out.println("Aviso: Iniciando com base de dados limpa.");
         }
 
-        // --- 2. CONFIGURAÇÃO INICIAL DO EVENTO ---
+        // Configuração inicial do evento
         eventoService.criarEvento("Gala de Tecnologia");
 
-        // Cadastra Garçons e Mesas (Dados de teste recriados a cada execução)
+        // Cadastra Garçons e Mesas
         Garcom g1 = eventoService.cadastrarGarcom("Carlos");
         Garcom g2 = eventoService.cadastrarGarcom("Ana");
 
@@ -60,7 +60,7 @@ public class MenuPrincipal {
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
-        // --- 3. LOOP DO MENU ---
+        // Loop do menu principal
         while (true) {
             exibirMenu();
             int opcao = lerOpcao();
@@ -117,7 +117,7 @@ public class MenuPrincipal {
         }
     }
 
-    // --- AQUI ESTÁ A ALTERAÇÃO (VALIDAÇÃO DO NOME) ---
+
     private static void cadastrarConvidado() {
         try {
             System.out.print("Nome do convidado: ");
@@ -230,7 +230,7 @@ public class MenuPrincipal {
     private static void gerarRelatorioPDF() {
         System.out.println("Gerando PDF do evento...");
         try {
-            // Caminho para salvar (ajuste se necessário)
+
             String nomeArquivo = "G:\\Meu Drive\\EventosVIP\\Relatorio_Evento_VIP.pdf";
 
             relatorioPDFService.gerarRelatorioPdf(eventoService.getEventoAtual(), nomeArquivo);
