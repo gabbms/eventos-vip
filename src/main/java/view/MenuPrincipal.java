@@ -25,7 +25,7 @@ public class MenuPrincipal {
         pedidoService = new PedidoService(eventoService);
         relatorioService = new RelatorioService(pagamentoService);
 
-        // Carregar dados salvos (Persistência)
+        // --- 1. CARREGAR DADOS SALVOS (PERSISTÊNCIA) ---
         try {
             System.out.println("Tentando carregar convidados salvos...");
             List<Convidado> dadosSalvos = persistenciaService.carregarConvidados();
@@ -40,10 +40,10 @@ public class MenuPrincipal {
             System.out.println("Aviso: Iniciando com base de dados limpa.");
         }
 
-        // Configuração inicial do evento
+        // --- 2. CONFIGURAÇÃO INICIAL DO EVENTO ---
         eventoService.criarEvento("Gala de Tecnologia");
 
-        // Cadastra Garçons e Mesas
+        // Cadastra Garçons e Mesas (Dados de teste recriados a cada execução)
         Garcom g1 = eventoService.cadastrarGarcom("Carlos");
         Garcom g2 = eventoService.cadastrarGarcom("Ana");
 
@@ -60,7 +60,7 @@ public class MenuPrincipal {
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
-        // Loop do menu principal
+        // --- 3. LOOP DO MENU ---
         while (true) {
             exibirMenu();
             int opcao = lerOpcao();
@@ -117,7 +117,6 @@ public class MenuPrincipal {
         }
     }
 
-
     private static void cadastrarConvidado() {
         try {
             System.out.print("Nome do convidado: ");
@@ -149,13 +148,20 @@ public class MenuPrincipal {
         }
     }
 
+    // --- CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS ---
     private static void designarConvidadoMesa() {
         try {
             System.out.print("ID do convidado: ");
             int id = Integer.parseInt(sc.nextLine());
 
+            // Validação de Negativo
+            if (id <= 0) throw new Exception("O ID deve ser positivo.");
+
             System.out.print("Número da mesa: ");
             int numMesa = Integer.parseInt(sc.nextLine());
+
+            // Validação de Negativo
+            if (numMesa <= 0) throw new Exception("O número da mesa deve ser positivo.");
 
             eventoService.designarConvidadoMesa(id, numMesa);
             System.out.println("Sucesso: Convidado adicionado à mesa " + numMesa);
@@ -202,10 +208,14 @@ public class MenuPrincipal {
         }
     }
 
+    // --- CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS ---
     private static void fecharContaMesa() {
         try {
             System.out.print("Número da mesa para fechar: ");
             int numMesa = Integer.parseInt(sc.nextLine());
+
+            // Validação de Negativo
+            if (numMesa <= 0) throw new Exception("Número da mesa inválido.");
 
             Mesa mesa = eventoService.buscarMesa(numMesa);
             pagamentoService.calcularContaMesa(mesa);
@@ -230,7 +240,7 @@ public class MenuPrincipal {
     private static void gerarRelatorioPDF() {
         System.out.println("Gerando PDF do evento...");
         try {
-
+            // Caminho do Drive ou Local
             String nomeArquivo = "G:\\Meu Drive\\EventosVIP\\Relatorio_Evento_VIP.pdf";
 
             relatorioPDFService.gerarRelatorioPdf(eventoService.getEventoAtual(), nomeArquivo);
