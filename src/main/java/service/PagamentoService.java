@@ -1,8 +1,5 @@
 package service;
-
-import model.Convidado;
-import model.Mesa;
-import model.Pedido;
+import model.*;
 import java.util.List;
 
 public class PagamentoService {

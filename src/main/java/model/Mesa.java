@@ -1,5 +1,5 @@
 package model;
-import Exception.MesaLotadaException;
+import exception.MesaLotadaException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class MesaLotadaException extends RuntimeException{
     public MesaLotadaException(String s){

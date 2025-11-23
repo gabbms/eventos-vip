@@ -1,7 +1,7 @@
 package service;
 
-import Exception.ItemNaoEncontradoException;
-import Exception.MesaLotadaException;
+import exception.ItemNaoEncontradoException;
+import exception.MesaLotadaException;
 import model.*;
 
 import java.util.ArrayList;
