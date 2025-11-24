@@ -23,7 +23,7 @@ public class EventoService {
         this.garconsCadastrados = new ArrayList<>();
     }
 
-    // --- Métodos de Configuração do Evento ---
+    // Métodos de Configuração do Evento
 
     public void criarEvento(String tema) {
         this.eventoAtual = new Evento(tema);
@@ -44,7 +44,7 @@ public class EventoService {
         System.out.println("Item '" + nome + "' adicionado ao cardápio.");
     }
 
-    // --- Métodos de Cadastro ---
+    // Métodos de Cadastro
 
     public Garcom cadastrarGarcom(String nome) {
         Garcom g = new Garcom(nome, proximoIdGarcom++);
@@ -76,7 +76,7 @@ public class EventoService {
         return novoConvidado.getId(); // Retorna o ID para o usuário
     }
 
-    // --- Métodos de Lógica/Orquestração ---
+    // Métodos de Lógica/Orquestração
 
     public void designarConvidadoMesa(int idConvidado, int numeroMesa)
             throws Exception, MesaLotadaException {
@@ -88,7 +88,7 @@ public class EventoService {
         mesa.adicionarConvidado(convidado);
     }
 
-    // --- Métodos de Busca ---
+    // Métodos de Busca
 
     public Convidado buscarConvidado(int id) throws Exception {
         for (Convidado c : convidadosCadastrados) {
@@ -124,7 +124,7 @@ public class EventoService {
         return eventoAtual;
     }
 
-    // --- MÉTODOS PARA PERSISTÊNCIA (NOVO) ---
+    //  MÉTODOS PARA PERSISTÊNCIA
 
     // Permite que o PersistenciaService pegue a lista para salvar
     public List<Convidado> getConvidadosCadastrados() {

@@ -3,10 +3,7 @@ package service;
 import model.Evento;
 import model.Mesa;
 
-/**
- * Implementação concreta da interface IRelatorio.
- * [cite_start]Sabe como calcular e formatar o relatório de faturamento do evento. [cite: 20, 26]
- */
+
 public class RelatorioService implements IRelatorio {
 
     private PagamentoService pagamentoService;

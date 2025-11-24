@@ -19,14 +19,14 @@ public class PedidoService {
     public void criarPedido(int idMesa, int idConvidado, List<String> nomesItens)
             throws Exception, PermissaoException, ItemNaoEncontradoException {
 
-        // 1. Buscar as entidades
+        // Buscar as entidades
         Mesa mesa = eventoService.buscarMesa(idMesa);
         Convidado convidado = eventoService.buscarConvidado(idConvidado);
         Garcom garcom = mesa.getGarcomAssociado();
 
         List<ItemCardapio> itensDoPedido = new ArrayList<>();
 
-        // 2. Validar os itens e permissões
+        // Validar os itens e permissões
         for (String nomeItem : nomesItens) {
             ItemCardapio item = eventoService.buscarItemCardapio(nomeItem);
 
@@ -37,13 +37,13 @@ public class PedidoService {
             itensDoPedido.add(item);
         }
 
-        // 3. Criar o Pedido
+        /* Criar o Pedido */
         Pedido pedido = new Pedido(proximoIdPedido++, mesa, convidado, garcom, itensDoPedido);
 
-        // 4. Registrar o pedido na mesa
+        //  Registrar o pedido na mesa
         mesa.adicionarPedido(pedido);
 
-        // 5. Notificar o Garçom
+        // Notificar o Garçom
         notificarGarcom(garcom, pedido);
     }
 

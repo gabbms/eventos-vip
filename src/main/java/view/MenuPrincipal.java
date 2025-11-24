@@ -16,7 +16,7 @@ public class MenuPrincipal {
     private static PedidoService pedidoService;
     private static IRelatorio relatorioService;
 
-    // Serviços extras (Persistência e PDF)
+    // Serviços extras
     private static PersistenciaService persistenciaService = new PersistenciaService();
     private static RelatorioPDFService relatorioPDFService = new RelatorioPDFService();
 
@@ -25,7 +25,7 @@ public class MenuPrincipal {
         pedidoService = new PedidoService(eventoService);
         relatorioService = new RelatorioService(pagamentoService);
 
-        // --- 1. CARREGAR DADOS SALVOS (PERSISTÊNCIA) ---
+        // CARREGAR DADOS SALVOS
         try {
             System.out.println("Tentando carregar convidados salvos...");
             List<Convidado> dadosSalvos = persistenciaService.carregarConvidados();
@@ -40,7 +40,7 @@ public class MenuPrincipal {
             System.out.println("Aviso: Iniciando com base de dados limpa.");
         }
 
-        // --- 2. CONFIGURAÇÃO INICIAL DO EVENTO ---
+        // CONFIGURAÇÃO INICIAL DO EVENTO
         eventoService.criarEvento("Gala de Tecnologia");
 
         // Cadastra Garçons e Mesas (Dados de teste recriados a cada execução)
@@ -60,7 +60,7 @@ public class MenuPrincipal {
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
-        // --- 3. LOOP DO MENU ---
+        // LOOP DO MENU
         while (true) {
             exibirMenu();
             int opcao = lerOpcao();
@@ -148,7 +148,7 @@ public class MenuPrincipal {
         }
     }
 
-    // --- CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS ---
+    // CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS
     private static void designarConvidadoMesa() {
         try {
             System.out.print("ID do convidado: ");
@@ -208,7 +208,7 @@ public class MenuPrincipal {
         }
     }
 
-    // --- CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS ---
+    // CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS
     private static void fecharContaMesa() {
         try {
             System.out.print("Número da mesa para fechar: ");
