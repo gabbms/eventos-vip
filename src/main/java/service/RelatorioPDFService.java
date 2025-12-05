@@ -30,9 +30,15 @@ public class RelatorioPDFService {
                     .setFontSize(20)
                     .setBold());
 
+            // Personalizações
+            document.add(new Paragraph("Tema: " + evento.getTema()));
+            document.add(new Paragraph("Personalização Padrão: " + evento.getPersonalizacaoTema()));
+            document.add(new Paragraph("Personalização VIP: " + evento.getPersonalizacaoMesaVIP()));
+
             document.add(new Paragraph("\n--------------------------------------------------\n"));
 
             // Dados
+            // Instanciando PagamentoService dentro do método é ineficiente, mas mantido para evitar mudanças maiores.
             PagamentoService pagamentoService = new PagamentoService();
             double totalGeral = 0;
 

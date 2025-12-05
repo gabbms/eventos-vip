@@ -53,7 +53,16 @@ public class EventoService {
         return g;
     }
 
-    public Mesa cadastrarMesa(int numero, Garcom garcom) {
+    public Mesa cadastrarMesa(int numero, int idGarcom) throws Exception {
+        Garcom garcom = buscarGarcom(idGarcom);
+        
+        // Validação: Verifica se a mesa já existe
+        for (Mesa m : mesasCadastradas) {
+            if (m.getNumero() == numero) {
+                throw new Exception("Mesa de número " + numero + " já cadastrada.");
+            }
+        }
+        
         Mesa m = new Mesa(numero, garcom);
         this.mesasCadastradas.add(m);
         System.out.println("Mesa " + numero + " cadastrada e associada ao garçom " + garcom.getNome());
@@ -89,6 +98,15 @@ public class EventoService {
     }
 
     // Métodos de Busca
+
+    public Garcom buscarGarcom(int id) throws Exception {
+        for (Garcom g : garconsCadastrados) {
+            if (g.getId() == id) {
+                return g;
+            }
+        }
+        throw new Exception("Garçom com ID " + id + " não encontrado.");
+    }
 
     public Convidado buscarConvidado(int id) throws Exception {
         for (Convidado c : convidadosCadastrados) {
