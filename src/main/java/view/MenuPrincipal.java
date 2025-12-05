@@ -351,14 +351,14 @@ public class MenuPrincipal {
             }
 
             System.out.println("Personalização de Tema/Mesa Padrão atual: " + evento.getPersonalizacaoTema());
-            System.out.print("Nova Personalização de Tema/Mesa Padrão (deixe em branco para manter): ");
+	            System.out.print("Nova Personalização de Tema/Mesa Padrão (deixe em branco para manter) [Ex: Toalhas Brancas, Arranjos Simples]: ");
             String novaPersonalizacaoTema = sc.nextLine();
             if (!novaPersonalizacaoTema.trim().isEmpty()) {
                 evento.setPersonalizacaoTema(novaPersonalizacaoTema);
             }
 
             System.out.println("Personalização de Mesa VIP atual: " + evento.getPersonalizacaoMesaVIP());
-            System.out.print("Nova Personalização de Mesa VIP (deixe em branco para manter): ");
+	            System.out.print("Nova Personalização de Mesa VIP (deixe em branco para manter) [Ex: Luzes de Neon, Garrafa de Champanhe]: ");
             String novaPersonalizacaoVIP = sc.nextLine();
             if (!novaPersonalizacaoVIP.trim().isEmpty()) {
                 evento.setPersonalizacaoMesaVIP(novaPersonalizacaoVIP);
