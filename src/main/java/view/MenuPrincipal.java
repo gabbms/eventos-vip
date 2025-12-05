@@ -46,7 +46,7 @@ public class MenuPrincipal {
         // Garçons e Mesas serão cadastrados pelo usuário (opções 7 e 8)
         // Dados de teste removidos para forçar o uso dos novos cadastros.
 
-<<<<<<< HEAD
+
 
 
         // Itens do Cardápio
@@ -54,9 +54,9 @@ public class MenuPrincipal {
         eventoService.adicionarItemCardapio("Refrigerante", 8.00, false);
         eventoService.adicionarItemCardapio("Prato Principal", 50.00, false);
         eventoService.adicionarItemCardapio("Lagosta", 150.00, true); // VIP
-=======
+
         // Itens do Cardápio serão cadastrados pelo usuário (nova opção de menu)
->>>>>>> b561c75bbcfdb5925bb09cbe6e645269508b1180
+
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
