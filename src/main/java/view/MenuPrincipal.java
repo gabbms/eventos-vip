@@ -5,12 +5,7 @@ import model.ItemCardapio;
 import model.Mesa;
 import model.Evento;
 import model.Garcom;
-import service.EventoService;
-import service.PagamentoService;
-import service.PedidoService;
-import service.IRelatorio;
-import service.PersistenciaService;
-import service.RelatorioPDFService;
+import service.*;
 
 import java.util.ArrayList;
 import java.util.List;
