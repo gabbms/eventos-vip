@@ -272,35 +272,16 @@ public class MenuPrincipal {
 
 	    private static void gerarRelatorioPDF() {
 	        System.out.println("Gerando PDF do evento...");
-	        String nomeArquivoLocal = null;
 	        try {
-	            // 1. Gerar o PDF localmente
+	            // Caminho para salvar localmente no diretório do projeto
 	            String tema = eventoService.getEventoAtual().getTema().replaceAll("\\s+", "_");
-	            nomeArquivoLocal = "Relatorio_" + tema + ".pdf";
-	            
-	            // O PDF será gerado no diretório raiz do projeto
-	            relatorioPDFService.gerarRelatorioPdf(eventoService.getEventoAtual(), nomeArquivoLocal);
-	            System.out.println("PDF gerado localmente: " + nomeArquivoLocal);
+	            String nomeArquivo = "Relatorio_" + tema + ".pdf";
 	
-	            // 2. Fazer o upload para a nuvem (simulando Google Drive/S3)
-	            // Usando o utilitário manus-upload-file (disponível no ambiente sandbox)
-	            
-	            // NOTA: No ambiente real do usuário, esta parte precisaria ser adaptada
-	            // para um comando de shell ou uma chamada de API Java para o serviço de nuvem.
-	            // Aqui, simulamos o upload com um comando shell que retorna um link.
-	            
-	            // Como não podemos executar comandos shell diretamente no código Java,
-	            // e para não complicar o projeto com bibliotecas de upload,
-	            // vamos simular o link de upload para o usuário.
-	            
-	            String linkSimulado = "https://cloud.manus.im/eventos-vip/" + nomeArquivoLocal;
-	            
-	            System.out.println("\n--- SUCESSO: PDF ENVIADO PARA A NUVEM ---");
-	            System.out.println("Link de Acesso (Simulado): " + linkSimulado);
-	            System.out.println("----------------------------------------\n");
+	            relatorioPDFService.gerarRelatorioPdf(eventoService.getEventoAtual(), nomeArquivo);
+	            System.out.println("PDF gerado com sucesso! Arquivo salvo em: " + nomeArquivo);
 	
 	        } catch (Exception e) {
-	            System.err.println("Erro ao criar ou enviar PDF: " + e.getMessage());
+	            System.err.println("Erro ao criar PDF (Verifique as bibliotecas iText): " + e.getMessage());
 	        }
 	    }
 
