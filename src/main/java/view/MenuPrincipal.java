@@ -46,6 +46,7 @@ public class MenuPrincipal {
         // Garçons e Mesas serão cadastrados pelo usuário (opções 7 e 8)
         // Dados de teste removidos para forçar o uso dos novos cadastros.
 
+<<<<<<< HEAD
 
 
         // Itens do Cardápio
@@ -53,6 +54,9 @@ public class MenuPrincipal {
         eventoService.adicionarItemCardapio("Refrigerante", 8.00, false);
         eventoService.adicionarItemCardapio("Prato Principal", 50.00, false);
         eventoService.adicionarItemCardapio("Lagosta", 150.00, true); // VIP
+=======
+        // Itens do Cardápio serão cadastrados pelo usuário (nova opção de menu)
+>>>>>>> b561c75bbcfdb5925bb09cbe6e645269508b1180
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
@@ -61,35 +65,38 @@ public class MenuPrincipal {
             exibirMenu();
             int opcao = lerOpcao();
 
-            switch (opcao) {
-                case 1:
-                    cadastrarConvidado();
-                    break;
-                case 2:
-                    designarConvidadoMesa();
-                    break;
-                case 3:
-                    fazerPedido();
-                    break;
-                case 4:
-                    fecharContaMesa();
-                    break;
-                case 5:
-                    emitirRelatorioConsole();
-                    break;
+	            switch (opcao) {
+	                case 1:
+	                    configurarTemaPersonalizacao();
+	                    break;
+	                case 2:
+	                    cadastrarGarcom();
+	                    break;
+	                case 3:
+	                    cadastrarMesa();
+	                    break;
+	                case 4:
+	                    cadastrarConvidado();
+	                    break;
+	                case 5:
+	                    cadastrarItemCardapio();
+	                    break;
 	                case 6:
+	                    designarConvidadoMesa();
+	                    break;
+	                case 7:
+	                    fazerPedido();
+	                    break;
+	                case 8:
+	                    fecharContaMesa();
+	                    break;
+	                case 9:
+	                    emitirRelatorioConsole();
+	                    break;
+	                case 10:
 	                    gerarRelatorioPDF();
-                    break;
-                case 7:
-                    cadastrarGarcom();
-                    break;
-                case 8:
-                    cadastrarMesa();
-                    break;
-                case 9:
-                    configurarTemaPersonalizacao();
-                    break;
-                case 0:
+	                    break;
+	                case 0:
                     // Salva os dados antes de sair
                     System.out.println("Salvando dados...");
                     persistenciaService.salvarConvidados(eventoService.getConvidadosCadastrados());
@@ -101,20 +108,21 @@ public class MenuPrincipal {
         }
     }
 
-    private static void exibirMenu() {
-        System.out.println("\n--- MENU EVENTOS VIP ---");
-        System.out.println("1. Cadastrar Convidado");
-        System.out.println("2. Designar Convidado à Mesa");
-        System.out.println("3. Fazer Pedido");
-        System.out.println("4. Fechar Conta da Mesa");
-        System.out.println("5. Relatório no Console");
-        System.out.println("6. Gerar PDF do Evento");
-        System.out.println("7. Cadastrar Garçom");
-        System.out.println("8. Cadastrar Mesa");
-        System.out.println("9. Configurar Tema e Personalização");
-        System.out.println("0. Sair e Salvar");
-        System.out.print("Escolha uma opção: ");
-    }
+	    private static void exibirMenu() {
+	        System.out.println("\n--- MENU EVENTOS VIP ---");
+	        System.out.println("1. Configurar Tema e Personalização");
+	        System.out.println("2. Cadastrar Garçom");
+	        System.out.println("3. Cadastrar Mesa");
+	        System.out.println("4. Cadastrar Convidado");
+	        System.out.println("5. Cadastrar Item do Cardápio");
+	        System.out.println("6. Designar Convidado à Mesa");
+	        System.out.println("7. Fazer Pedido");
+	        System.out.println("8. Fechar Conta da Mesa");
+	        System.out.println("9. Relatório no Console");
+	        System.out.println("10. Gerar PDF do Evento");
+	        System.out.println("0. Sair e Salvar");
+	        System.out.print("Escolha uma opção: ");
+	    }
 
     private static int lerOpcao() {
         return lerInteiro();
@@ -162,6 +170,19 @@ public class MenuPrincipal {
     // CÓDIGO ATUALIZADO COM VALIDAÇÃO DE NEGATIVOS
     private static void designarConvidadoMesa() {
         try {
+            System.out.println("\n--- MESAS DISPONÍVEIS ---");
+            List<Mesa> mesas = eventoService.getEventoAtual().getMesas();
+            if (mesas.isEmpty()) {
+                System.out.println("Nenhuma mesa cadastrada.");
+                return;
+            }
+            for (Mesa mesa : mesas) {
+                String status = mesa.getConvidados().size() < 8 ? "Livre" : "Cheia";
+                System.out.printf("Mesa %d (Garçom: %s, Convidados: %d/8, Status: %s)\n",
+                        mesa.getNumero(), mesa.getGarcomAssociado().getNome(), mesa.getConvidados().size(), status);
+            }
+            System.out.println("--------------------------\n");
+
             System.out.print("ID do convidado: ");
             int id = lerInteiro();
 
@@ -268,7 +289,38 @@ public class MenuPrincipal {
         }
     }
 
-    private static void cadastrarGarcom() {
+	    private static void cadastrarItemCardapio() {
+	        try {
+	            System.out.print("Nome do Item: ");
+	            String nome = sc.nextLine();
+	
+	            if (nome.trim().isEmpty()) {
+	                throw new Exception("O nome do item não pode ser vazio.");
+	            }
+	
+	            System.out.print("Preço do Item: ");
+	            // Usando sc.nextLine() e Double.parseDouble para evitar problemas de buffer
+	            double preco = Double.parseDouble(sc.nextLine().replace(',', '.'));
+	
+	            if (preco <= 0) {
+	                throw new Exception("O preço deve ser positivo.");
+	            }
+	
+	            System.out.print("É exclusivo VIP? (S/N): ");
+	            String isVipStr = sc.nextLine();
+	            boolean isVip = isVipStr.trim().equalsIgnoreCase("S");
+	
+	            eventoService.adicionarItemCardapio(nome, preco, isVip);
+	            System.out.println("Item '" + nome + "' cadastrado com sucesso!");
+	
+	        } catch (NumberFormatException e) {
+	            System.err.println("Erro de formato: Digite um número válido para o preço (ex: 5.00).");
+	        } catch (Exception e) {
+	            System.err.println("Erro ao cadastrar Item: " + e.getMessage());
+	        }
+	    }
+
+	    private static void cadastrarGarcom() {
         try {
             System.out.print("Nome do Garçom: ");
             String nome = sc.nextLine();
