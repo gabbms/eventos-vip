@@ -46,6 +46,8 @@ public class MenuPrincipal {
         // Garçons e Mesas serão cadastrados pelo usuário (opções 7 e 8)
         // Dados de teste removidos para forçar o uso dos novos cadastros.
 
+
+
         // Itens do Cardápio
         eventoService.adicionarItemCardapio("Água", 5.00, false);
         eventoService.adicionarItemCardapio("Refrigerante", 8.00, false);
