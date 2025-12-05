@@ -5,12 +5,7 @@ import model.ItemCardapio;
 import model.Mesa;
 import model.Evento;
 import model.Garcom;
-import service.EventoService;
-import service.PagamentoService;
-import service.PedidoService;
-import service.IRelatorio;
-import service.PersistenciaService;
-import service.RelatorioPDFService;
+import service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +50,7 @@ public class MenuPrincipal {
         // Garçons e Mesas serão cadastrados pelo usuário (opções 7 e 8)
         // Dados de teste removidos para forçar o uso dos novos cadastros.
 
-	        // Itens do Cardápio serão cadastrados pelo usuário (nova opção de menu)
+		        // Itens do Cardápio serão cadastrados pelo usuário (nova opção de menu)
 
         System.out.println("\n--- Sistema de Eventos VIP iniciado ---");
 
