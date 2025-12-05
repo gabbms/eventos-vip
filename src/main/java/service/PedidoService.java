@@ -22,3 +22,7 @@ public class PedidoService {
             }
             itensDoPedido.add(item);
         }
+        Pedido novoPedido = new Pedido(proximoIdPedido++, convidado, garcom, itensDoPedido);
+        mesa.adicionarPedido(novoPedido);
+    }
+}
