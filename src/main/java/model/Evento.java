@@ -1,16 +1,13 @@
 package model;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class Evento {
     private String tema;
-    private String personalizacaoTema; // Adicionado para personalização de tema/mesa
-    private String personalizacaoMesaVIP; // Adicionado para personalização de mesa VIP
+    private String personalizacaoTema;
+    private String personalizacaoMesaVIP;
     private List<Mesa> mesas;
     private List<Garcom> garcons;
     private List<ItemCardapio> cardapio;
-
     public Evento(String tema) {
         this.tema = tema;
         this.personalizacaoTema = "Decoração Padrão";
@@ -19,14 +16,10 @@ public class Evento {
         this.garcons = new ArrayList<>();
         this.cardapio = new ArrayList<>();
     }
-
-    // Getters e Setters
     public String getTema() { return tema; }
     public void setTema(String tema) { this.tema = tema; }
-
     public String getPersonalizacaoTema() { return personalizacaoTema; }
     public void setPersonalizacaoTema(String personalizacaoTema) { this.personalizacaoTema = personalizacaoTema; }
-
     public String getPersonalizacaoMesaVIP() { return personalizacaoMesaVIP; }
     public void setPersonalizacaoMesaVIP(String personalizacaoMesaVIP) { this.personalizacaoMesaVIP = personalizacaoMesaVIP; }
     public List<Mesa> getMesas() { return mesas; }
