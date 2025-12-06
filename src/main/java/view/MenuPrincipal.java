@@ -114,6 +114,9 @@ public class MenuPrincipal {
             }
             System.out.print("Tipo (1-Regular, 2-VIP): ");
             int tipo = lerInteiro();
+            if (tipo != 1 && tipo != 2) {
+                throw new Exception("Tipo de convidado inválido. Digite 1 para Regular ou 2 para VIP.");
+            }
             String tipoStr = (tipo == 2) ? "VIP" : "Regular";
             int idGerado = eventoService.cadastrarConvidado(nome, tipoStr);
             System.out.println("Convidado cadastrado com sucesso!");
@@ -144,6 +147,7 @@ public class MenuPrincipal {
             System.out.print("Número da mesa: ");
             int numMesa = lerInteiro();
             if (numMesa <= 0) throw new Exception("O número da mesa deve ser positivo.");
+            if (numMesa == -1) throw new Exception("Entrada inválida. Esperado um número para o número da mesa.");
             eventoService.designarConvidadoMesa(id, numMesa);
             System.out.println("Sucesso: Convidado adicionado à mesa " + numMesa);
         } catch (NumberFormatException e) {
@@ -226,20 +230,23 @@ public class MenuPrincipal {
 	            if (nome.trim().isEmpty()) {
 	                throw new Exception("O nome do item não pode ser vazio.");
 	            }
-	            System.out.print("Preço do Item: ");
-	            double preco = Double.parseDouble(sc.nextLine().replace(',', '.'));
-	            if (preco <= 0) {
-	                throw new Exception("O preço deve ser positivo.");
+	            if (nome.matches(".*\\d.*")) {
+	                throw new Exception("O nome do item não pode conter números.");
 	            }
-	            System.out.print("É exclusivo VIP? (S/N): ");
+	            System.out.print("Preço (ex: 10.50): ");
+	            double preco = Double.parseDouble(sc.nextLine());
+	            if (preco <= 0) {
+	                throw new Exception("O preço deve ser um valor positivo.");
+	            }
+	            System.out.print("Exclusivo VIP? (S/N): ");
 	            String isVipStr = sc.nextLine();
-	            boolean isVip = isVipStr.trim().equalsIgnoreCase("S");
+	            boolean isVip = isVipStr.equalsIgnoreCase("S");
 	            eventoService.adicionarItemCardapio(nome, preco, isVip);
 	            System.out.println("Item '" + nome + "' cadastrado com sucesso!");
 	        } catch (NumberFormatException e) {
-	            System.err.println("Erro de formato: Digite um número válido para o preço (ex: 5.00).");
+	            System.err.println("Erro de formato: O preço deve ser um número.");
 	        } catch (Exception e) {
-	            System.err.println("Erro ao cadastrar Item: " + e.getMessage());
+	            System.err.println("Erro ao cadastrar item: " + e.getMessage());
 	        }
 	    }
 	    private static void cadastrarGarcom() {
@@ -283,23 +290,22 @@ public class MenuPrincipal {
             System.out.println("Configuração atualizada com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao configurar tema e personalização: " + e.getMessage());
-        }
-    }
-    private static void cadastrarMesa() {
-        try {
-            System.out.print("Número da Mesa: ");
-            int numMesa = lerInteiro();
-            if (numMesa <= 0) {
-                throw new Exception("O número da mesa deve ser positivo.");
-            }
-            System.out.print("ID do Garçom responsável: ");
-            int idGarcom = lerInteiro();
-            if (idGarcom <= 0) {
-                throw new Exception("O ID do Garçom deve ser positivo.");
-            }
-            eventoService.cadastrarMesa(numMesa, idGarcom);
-            System.out.println("Mesa " + numMesa + " cadastrada com sucesso e designada ao Garçom ID " + idGarcom + ".");
-        } catch (NumberFormatException e) {
+        	    private static void cadastrarMesa() {
+	        try {
+	            System.out.print("Número da mesa: ");
+	            int numMesa = lerInteiro();
+	            if (numMesa == -1) throw new Exception("Entrada inválida. Esperado um número para o número da mesa.");
+	            if (numMesa <= 0) throw new Exception("O número da mesa deve ser positivo.");
+	            System.out.print("ID do Garçom responsável: ");
+	            int idGarcom = lerInteiro();
+	            if (idGarcom == -1) throw new Exception("Entrada inválida. Esperado um número para o ID do Garçom.");
+	            if (idGarcom <= 0) throw new Exception("O ID do Garçom deve ser positivo.");
+	            eventoService.cadastrarMesa(numMesa, idGarcom);
+	            System.out.println("Mesa " + numMesa + " cadastrada com sucesso!");
+	        } catch (Exception e) {
+	            System.err.println("Erro ao cadastrar mesa: " + e.getMessage());
+	        }
+	    }ormatException e) {
             System.err.println("Erro de formato: Digite apenas números para o número da mesa e ID do Garçom.");
         } catch (Exception e) {
             System.err.println("Erro ao cadastrar Mesa: " + e.getMessage());
