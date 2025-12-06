@@ -288,9 +288,12 @@ public class MenuPrincipal {
                 evento.setPersonalizacaoMesaVIP(novaPersonalizacaoVIP);
             }
             System.out.println("Configuração atualizada com sucesso!");
-        } catch (Exception e) {
-            System.err.println("Erro ao configurar tema e personalização: " + e.getMessage());
-        	    private static void cadastrarMesa() {
+	        } catch (Exception e) {
+	            System.err.println("Erro ao configurar tema e personalização: " + e.getMessage());
+	        }
+	    }
+	
+	    private static void cadastrarMesa() {
 	        try {
 	            System.out.print("Número da mesa: ");
 	            int numMesa = lerInteiro();
@@ -305,10 +308,4 @@ public class MenuPrincipal {
 	        } catch (Exception e) {
 	            System.err.println("Erro ao cadastrar mesa: " + e.getMessage());
 	        }
-	    }ormatException e) {
-            System.err.println("Erro de formato: Digite apenas números para o número da mesa e ID do Garçom.");
-        } catch (Exception e) {
-            System.err.println("Erro ao cadastrar Mesa: " + e.getMessage());
-        }
-    }
-}
+	    }
