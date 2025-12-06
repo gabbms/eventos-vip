@@ -309,3 +309,4 @@ public class MenuPrincipal {
 	            System.err.println("Erro ao cadastrar mesa: " + e.getMessage());
 	        }
 	    }
+}
